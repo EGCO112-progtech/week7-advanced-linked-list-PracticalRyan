@@ -10,7 +10,6 @@ int main(void)
    unsigned int choice;   // user's choice
    int item;              // char entered by user
 
-   instructions(); // display the menu
    printf("%s", "? ");
    scanf("%u", &choice);
 
@@ -54,7 +53,6 @@ int main(void)
          break;
       default:
          puts("Invalid choice.\n");
-         instructions();
          break;
       } // end switch
 
