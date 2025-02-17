@@ -1,8 +1,10 @@
+#include <string.h>
 
 // self-referential structure
 struct Node
 {
-   int id;               // each listNode contains a character
+   int id; // each listNode contains a character
+   char name[50];
    struct Node *nextPtr; // pointer to next node
    struct Node *pPtr;
 }; // end structure listNode
@@ -14,7 +16,7 @@ typedef LLnode *LLPtr;      // synonym for ListNode*
 
 int deletes(LLPtr *sPtr, int value);
 int isEmpty(LLPtr sPtr);
-void insert(LLPtr *sPtr, int value);
+void insert(LLPtr *sPtr, int value, char *name);
 void printList(LLPtr currentPtr);
 void instructions(void);
 
@@ -28,7 +30,7 @@ void instructions(void)
 } // end function instructions
 
 // insert a new value into the list in sorted order
-void insert(LLPtr *sPtr, int value)
+void insert(LLPtr *sPtr, int value, char *name)
 {
    LLPtr newPtr;      // pointer to new node
    LLPtr previousPtr; // pointer to previous node in list
@@ -37,8 +39,10 @@ void insert(LLPtr *sPtr, int value)
    newPtr = (LLPtr)malloc(sizeof(LLnode)); // create node
 
    if (newPtr != NULL)
-   {                          // is space available
-      newPtr->id = value;     // place value in node
+   {                              // is space available
+      newPtr->id = value;         // place value in node
+      strcpy(newPtr->name, name); // place value in node
+
       newPtr->nextPtr = NULL; // node does not link to another node
 
       previousPtr = NULL;
@@ -143,16 +147,16 @@ void printList(LLPtr currentPtr)
    } // end if
    else
    {
-      puts("The list is:");
+      // puts("The list is:");
 
       // while not the end of the list
       while (currentPtr->nextPtr != NULL)
       {
-         printf("%d --> ", currentPtr->id);
+         printf("%d %s --> ", currentPtr->id, currentPtr->name);
          currentPtr = currentPtr->nextPtr;
       } // end while
 
-      printf("%d --> NULL\n", currentPtr->id);
+      printf("%d %s -->NULL\n", currentPtr->id, currentPtr->name);
 
    } // end else
 } // end function printList
@@ -167,7 +171,7 @@ void printListR(LLPtr currentPtr)
    } // end if
    else
    {
-      puts("The Reversed list is:");
+      // puts("The Reversed list is:");
 
       // Get to the end of the list
       while (currentPtr->nextPtr != NULL)
@@ -177,11 +181,11 @@ void printListR(LLPtr currentPtr)
       // while not the end of the list
       while (currentPtr->pPtr != NULL)
       {
-         printf("%d --> ", currentPtr->id);
+         printf("%d %s --> ", currentPtr->id, currentPtr->name);
          currentPtr = currentPtr->pPtr;
       } // end while
 
-      printf("%d --> NULL\n", currentPtr->id);
+      printf("%d %s -->NULL\n", currentPtr->id, currentPtr->name);
 
    } // end else
 } // end function printList
