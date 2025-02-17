@@ -55,17 +55,23 @@ void insert(LLPtr *sPtr, int value)
       if (previousPtr == NULL)
       {
          newPtr->nextPtr = *sPtr;
-
+         if (*sPtr)
+         {
+            (*sPtr)->pPtr = newPtr;
+         }
          *sPtr = newPtr;
 
-      } // end if
+      } // end if      /* code */
       else
       { // insert new node between previousPtr and currentPtr
          previousPtr->nextPtr = newPtr;
          newPtr->pPtr = previousPtr;
 
          newPtr->nextPtr = currentPtr;
-         currentPtr->pPtr = newPtr;
+         if (currentPtr != NULL)
+         {
+            currentPtr->pPtr = newPtr;
+         }
 
       } // end else
    } // end if
@@ -107,6 +113,7 @@ int deletes(LLPtr *sPtr, int value)
       {
          tempPtr = currentPtr;
          previousPtr->nextPtr = currentPtr->nextPtr;
+         currentPtr->pPtr = previousPtr;
          free(tempPtr);
          return value;
       } // end if
@@ -138,6 +145,35 @@ void printList(LLPtr currentPtr)
       {
          printf("%d --> ", currentPtr->data);
          currentPtr = currentPtr->nextPtr;
+      } // end while
+
+      printf("%d --> NULL\n", currentPtr->data);
+
+   } // end else
+} // end function printList
+
+// print the list
+void printListR(LLPtr currentPtr)
+{
+   // if list is empty
+   if (isEmpty(currentPtr))
+   {
+      puts("List is empty.\n");
+   } // end if
+   else
+   {
+      puts("The Reversed list is:");
+
+      // Get to the end of the list
+      while (currentPtr->nextPtr != NULL)
+      {
+         currentPtr = currentPtr->nextPtr;
+      } // end while
+      // while not the end of the list
+      while (currentPtr->pPtr != NULL)
+      {
+         printf("%d --> ", currentPtr->data);
+         currentPtr = currentPtr->pPtr;
       } // end while
 
       printf("%d --> NULL\n", currentPtr->data);
