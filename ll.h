@@ -93,7 +93,11 @@ int deletes(LLPtr *sPtr, int value)
    {
       tempPtr = *sPtr;          // hold onto node being removed
       *sPtr = (*sPtr)->nextPtr; // de-thread the node
-      free(tempPtr);            // free the de-threaded node
+      if (*sPtr)
+      {
+         (*sPtr)->nextPtr->pPtr = NULL;
+      }
+      free(tempPtr); // free the de-threaded node
       return value;
    } // end if
    else
