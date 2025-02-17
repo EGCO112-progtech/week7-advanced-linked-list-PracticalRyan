@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.rmd": "markdown",
+        "*.js": "javascript",
+        "*.css": "tailwindcss",
+        "Caddyfile": "caddyfile",
+        "*.html": "html",
+        "ll.h": "c"
+    }
+}
